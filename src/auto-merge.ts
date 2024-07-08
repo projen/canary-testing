@@ -1,9 +1,9 @@
-import { github as gh, Component } from 'projen';
+import { github as gh, Component } from "projen";
 
 export enum MergeMethod {
-  SQUASH = 'squash',
-  MERGE = 'merge',
-  REBASE = 'rebase'
+  SQUASH = "squash",
+  MERGE = "merge",
+  REBASE = "rebase",
 }
 
 /**
@@ -59,37 +59,50 @@ export class AutoMerge extends Component {
     const conditions: string[] = [];
     if (labels.length > 0) {
       conditions.push(
-        '(' + labels.map((l) => `contains(github.event.pull_request.labels.*.name, '${l}')`).join(' || ') + ')',
+        "(" +
+          labels
+            .map(
+              (l) =>
+                `contains(github.event.pull_request.labels.*.name, '${l}')`,
+            )
+            .join(" || ") +
+          ")",
       );
     }
     if (usernames.length > 0) {
-      conditions.push('(' + usernames.map((u) => `github.event.pull_request.user.login == '${u}'`).join(' || ') + ')');
+      conditions.push(
+        "(" +
+          usernames
+            .map((u) => `github.event.pull_request.user.login == '${u}'`)
+            .join(" || ") +
+          ")",
+      );
     }
 
-    const secret = options.secret ?? 'GITHUB_TOKEN';
+    const secret = options.secret ?? "GITHUB_TOKEN";
     const mergeMethod = options.mergeMethod ?? MergeMethod.SQUASH;
 
     const autoMergeJob: gh.workflows.Job = {
-      name: 'Set AutoMerge on PR #${{ github.event.number }}',
-      runsOn: options.runsOn ?? ['ubuntu-latest'],
+      name: "Set AutoMerge on PR #${{ github.event.number }}",
+      runsOn: options.runsOn ?? ["ubuntu-latest"],
       permissions: {
         pullRequests: gh.workflows.JobPermission.WRITE,
         contents: gh.workflows.JobPermission.WRITE,
       },
-      if: conditions.length ? conditions.join(' && ') : undefined,
+      if: conditions.length ? conditions.join(" && ") : undefined,
       steps: [
         {
-          uses: 'peter-evans/enable-pull-request-automerge@v2',
+          uses: "peter-evans/enable-pull-request-automerge@v2",
           with: {
-            'token': `\${{ secrets.${secret} }}`,
-            'pull-request-number': '${{ github.event.number }}',
-            'merge-method': mergeMethod,
+            token: `\${{ secrets.${secret} }}`,
+            "pull-request-number": "${{ github.event.number }}",
+            "merge-method": mergeMethod,
           },
         },
       ],
     };
 
-    const workflow = github.addWorkflow('auto-merge');
+    const workflow = github.addWorkflow("auto-merge");
     workflow.on({
       // The 'pull request' event gives the workflow 'read-only' permissions on some
       // pull requests (such as the ones from dependabot) when using the `GITHUB_TOKEN`
@@ -106,7 +119,7 @@ export class AutoMerge extends Component {
       // That way a user can always disable auto-merge if they want to and the workflow will
       // not automatically re-enable it, unless one of the events occurs.
       pullRequestTarget: {
-        types: ['opened', 'reopened', 'ready_for_review'],
+        types: ["opened", "reopened", "ready_for_review"],
       },
     });
     workflow.addJobs({ enableAutoMerge: autoMergeJob });

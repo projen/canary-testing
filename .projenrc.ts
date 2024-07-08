@@ -17,7 +17,7 @@ const project = new cdk.JsiiProject({
   },
   autoApproveUpgrades: true,
   autoApproveOptions: {
-    allowedUsernames: ['cdklabs-automation', 'dependabot[bot]'],
+    allowedUsernames: ["cdklabs-automation", "dependabot[bot]"],
   },
   githubOptions: {
     mergify: false,
@@ -37,8 +37,8 @@ const project = new cdk.JsiiProject({
 new MergeQueue(project, {
   mergeBranch: "main",
   autoMergeOptions: {
-    labels: ['auto-approve']
-  }
+    labels: ["auto-approve"],
+  },
 });
 
 project.synth();
