@@ -1,16 +1,44 @@
 import { cdk } from "projen";
+import { MergeQueue } from "./src";
+
 const project = new cdk.JsiiProject({
   author: "AWS",
   authorAddress: "aws-cdk-dev@amazon.com",
   defaultReleaseBranch: "main",
-  name: "canary-testing",
+  name: "@projen/canary-package",
   projenrcTs: true,
-  release: false,
+  release: true,
   repositoryUrl: "https://github.com/projen/canary-testing.git",
-
-  // deps: [],                /* Runtime dependencies of this module. */
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],             /* Build dependencies for this module. */
-  // packageName: undefined,  /* The "name" in package.json. */
+  prettier: true,
+  jsiiVersion: "5.4.x",
+  typescriptVersion: "5.4.x",
+  jestOptions: {
+    jestVersion: "^29",
+  },
+  autoApproveUpgrades: true,
+  autoApproveOptions: {
+    allowedUsernames: ["cdklabs-automation", "dependabot[bot]"],
+  },
+  githubOptions: {
+    mergify: false,
+  },
+  peerDeps: ["constructs@^10.0.0", "projen@0.x >=0.75.0"],
+  peerDependencyOptions: {
+    pinnedDevDependency: false,
+  },
+  publishToMaven: {
+    javaPackage: "io.github.cdklabs.projen_canary_package",
+    mavenGroupId: "io.github.cdklabs",
+    mavenArtifactId: "projen_canary_package",
+    mavenEndpoint: "https://s01.oss.sonatype.org",
+  },
 });
+
+new MergeQueue(project, {
+  mergeBranch: "main",
+  autoMergeOptions: {
+    labels: ["auto-approve"],
+  },
+});
+
 project.synth();

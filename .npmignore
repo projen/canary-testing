@@ -4,7 +4,10 @@
 junit.xml
 /coverage/
 permissions-backup.acl
-/.mergify.yml
+/dist/changelog.md
+/dist/version.txt
+/.prettierignore
+/.prettierrc.json
 /test/
 /tsconfig.dev.json
 /src/
