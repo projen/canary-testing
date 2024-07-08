@@ -47,13 +47,13 @@ new MergeQueue(project, {
 project.github?.tryFindWorkflow("build")?.file?.patch(
   JsonPatch.replace("/jobs/package-java/steps/0/with", {
     distribution: "corretto",
-    "java-version": "21.x",
+    "java-version": "21",
   }),
 );
 project.github?.tryFindWorkflow("release")?.file?.patch(
   JsonPatch.replace("/jobs/release_maven/steps/0/with", {
     distribution: "corretto",
-    "java-version": "21.x",
+    "java-version": "21",
   }),
 );
 
