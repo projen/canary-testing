@@ -44,7 +44,7 @@ new MergeQueue(project, {
 });
 
 // fix java version
-const javaVersion = "16";
+const javaVersion = "11";
 project.github?.tryFindWorkflow("build")?.file?.patch(
   JsonPatch.replace("/jobs/package-java/steps/0/with", {
     distribution: "corretto",
