@@ -1,4 +1,5 @@
-import { cdk } from "projen";
+import { cdk, JsonPatch } from "projen";
+import { NpmAccess } from "projen/lib/javascript";
 import { MergeQueue } from "./src";
 
 const project = new cdk.JsiiProject({
@@ -26,6 +27,7 @@ const project = new cdk.JsiiProject({
   peerDependencyOptions: {
     pinnedDevDependency: false,
   },
+  npmAccess: NpmAccess.PUBLIC,
   publishToMaven: {
     javaPackage: "io.github.cdklabs.projen_canary_package",
     mavenGroupId: "io.github.cdklabs",
@@ -40,5 +42,19 @@ new MergeQueue(project, {
     labels: ["auto-approve"],
   },
 });
+
+// fix java version
+project.github?.tryFindWorkflow("build")?.file?.patch(
+  JsonPatch.replace("/jobs/package-java/steps/0/with", {
+    distribution: "corretto",
+    "java-version": "21.x",
+  }),
+);
+project.github?.tryFindWorkflow("release")?.file?.patch(
+  JsonPatch.replace("/jobs/release_maven/steps/0/with", {
+    distribution: "corretto",
+    "java-version": "21.x",
+  }),
+);
 
 project.synth();
