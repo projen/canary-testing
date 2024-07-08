@@ -44,16 +44,17 @@ new MergeQueue(project, {
 });
 
 // fix java version
+const javaVersion = "17";
 project.github?.tryFindWorkflow("build")?.file?.patch(
   JsonPatch.replace("/jobs/package-java/steps/0/with", {
     distribution: "corretto",
-    "java-version": "21",
+    "java-version": javaVersion,
   }),
 );
 project.github?.tryFindWorkflow("release")?.file?.patch(
   JsonPatch.replace("/jobs/release_maven/steps/0/with", {
     distribution: "corretto",
-    "java-version": "21",
+    "java-version": javaVersion,
   }),
 );
 
