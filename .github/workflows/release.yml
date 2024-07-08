@@ -88,6 +88,7 @@ jobs:
     needs: release
     runs-on: ubuntu-latest
     permissions:
+      id-token: write
       contents: read
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
@@ -114,6 +115,7 @@ jobs:
         env:
           NPM_DIST_TAG: latest
           NPM_REGISTRY: registry.npmjs.org
+          NPM_CONFIG_PROVENANCE: "true"
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx -p publib@latest publib-npm
   release_maven:
@@ -126,8 +128,8 @@ jobs:
     steps:
       - uses: actions/setup-java@v4
         with:
-          distribution: temurin
-          java-version: 20.x
+          distribution: corretto
+          java-version: 21.x
       - uses: actions/setup-node@v4
         with:
           node-version: 18.x
