@@ -1,6 +1,6 @@
 import { cdk, JsonPatch } from "projen";
-import { MergeQueue } from "./src";
 import { NpmAccess } from "projen/lib/javascript";
+import { MergeQueue } from "./src";
 
 const project = new cdk.JsiiProject({
   author: "AWS",
@@ -44,17 +44,17 @@ new MergeQueue(project, {
 });
 
 // fix java version
-project.github?.tryFindWorkflow('build')?.file?.patch(
-  JsonPatch.replace('/jobs/package-java/steps/0/with', {
-    "distribution": "corretto",
-    "java-version": "21.x"
-  })
+project.github?.tryFindWorkflow("build")?.file?.patch(
+  JsonPatch.replace("/jobs/package-java/steps/0/with", {
+    distribution: "corretto",
+    "java-version": "21.x",
+  }),
 );
-project.github?.tryFindWorkflow('release')?.file?.patch(
-  JsonPatch.replace('/jobs/release_maven/steps/0/with', {
-    "distribution": "corretto",
-    "java-version": "21.x"
-  })
+project.github?.tryFindWorkflow("release")?.file?.patch(
+  JsonPatch.replace("/jobs/release_maven/steps/0/with", {
+    distribution: "corretto",
+    "java-version": "21.x",
+  }),
 );
 
 project.synth();
