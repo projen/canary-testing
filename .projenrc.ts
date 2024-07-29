@@ -8,11 +8,12 @@ const project = new cdk.JsiiProject({
   defaultReleaseBranch: "main",
   name: "@projen/canary-package",
   projenrcTs: true,
-  release: true,
+  release: false,
   repositoryUrl: "https://github.com/projen/canary-testing.git",
   prettier: true,
   jsiiVersion: "5.4.x",
   typescriptVersion: "5.4.x",
+  majorVersion: 1,
   jestOptions: {
     jestVersion: "^29",
   },
