@@ -40,6 +40,15 @@ const project = new cdk.JsiiProject({
   },
 });
 
+project.github
+  ?.tryFindWorkflow("backport")
+  ?.file?.patch(
+    JsonPatch.add(
+      "/jobs/backport/steps/0/if",
+      "github.event.pull_request.merged && (github.event.action == 'closed' || (github.event.action == 'labeled' && startsWith(github.event.label.name, 'backport-to-')))",
+    ),
+  );
+
 new MergeQueue(project, {
   mergeBranch: "main",
   autoMergeOptions: {
