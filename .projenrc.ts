@@ -22,6 +22,10 @@ const project = new cdk.JsiiProject({
   },
   githubOptions: {
     mergify: false,
+    pullRequestBackport: true,
+    pullRequestBackportOptions: {
+      branches: ["v1"],
+    },
   },
   peerDeps: ["constructs@^10.0.0", "projen@0.x >=0.75.0"],
   peerDependencyOptions: {
@@ -35,6 +39,15 @@ const project = new cdk.JsiiProject({
     mavenEndpoint: "https://s01.oss.sonatype.org",
   },
 });
+
+project.github
+  ?.tryFindWorkflow("backport")
+  ?.file?.patch(
+    JsonPatch.add(
+      "/jobs/backport/steps/0/if",
+      "github.event.pull_request.merged && (github.event.action == 'closed' || (github.event.action == 'labeled' && startsWith(github.event.label.name, 'backport-to-')))",
+    ),
+  );
 
 new MergeQueue(project, {
   mergeBranch: "main",
