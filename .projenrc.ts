@@ -22,6 +22,10 @@ const project = new cdk.JsiiProject({
   },
   githubOptions: {
     mergify: false,
+    pullRequestBackport: true,
+    pullRequestBackportOptions: {
+      branches: ["v1"],
+    },
   },
   peerDeps: ["constructs@^10.0.0", "projen@0.x >=0.75.0"],
   peerDependencyOptions: {
