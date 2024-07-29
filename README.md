@@ -7,3 +7,4 @@ For example:
 
 - Publishing
 - Backports
+- GitHub Workflows
