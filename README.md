@@ -6,3 +6,8 @@ This package is used to integration test certain [projen](https://github.com/pro
 For example:
 
 - Publishing
+<<<<<<< HEAD
+=======
+- Backports
+- GitHub Workflows
+>>>>>>> 784df4a (chore: update readme (#10))
