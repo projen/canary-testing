@@ -17,6 +17,7 @@ jobs:
         run: |-
           labels='${{ toJSON(github.event.pull_request.labels.*.name) }}'
           matched=$(echo $labels | jq '.|map(select(startswith("backport-to-"))) | length')
+          echo "matched=$matched"
           echo "matched=$matched" >> $GITHUB_OUTPUT
       - name: Backport Action
         if: steps.check_labels.matched > 0
