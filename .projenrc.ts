@@ -55,7 +55,10 @@ project.github?.tryFindWorkflow("backport")?.file?.patch(
       'echo "matched=$matched" >> $GITHUB_OUTPUT',
     ].join("\n"),
   }),
-  JsonPatch.add("/jobs/backport/steps/1/if", "steps.check_labels.matched > 0"),
+  JsonPatch.add(
+    "/jobs/backport/steps/1/if",
+    "fromJSON(steps.check_labels.outputs.matched) > 0",
+  ),
 );
 
 new MergeQueue(project, {
