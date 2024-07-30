@@ -51,6 +51,7 @@ project.github?.tryFindWorkflow("backport")?.file?.patch(
     run: [
       "labels='${{ toJSON(github.event.pull_request.labels.*.name) }}'",
       `matched=$(echo $labels | jq '.|map(select(startswith("${label}"))) | length')`,
+      'echo "matched=$matched"',
       'echo "matched=$matched" >> $GITHUB_OUTPUT',
     ].join("\n"),
   }),
