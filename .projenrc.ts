@@ -37,6 +37,30 @@ const project = new cdk.JsiiProject({
   },
 });
 
+<<<<<<< HEAD
+=======
+const label = "backport-to-";
+const cond =
+  "github.event.pull_request.merged && !(contains(github.event.pull_request.labels.*.name, 'backport'))";
+project.github?.tryFindWorkflow("backport")?.file?.patch(
+  JsonPatch.add("/jobs/backport/if", cond),
+  JsonPatch.add("/jobs/backport/steps/0", {
+    id: "check_labels",
+    name: "Check for backport labels",
+    run: [
+      "labels='${{ toJSON(github.event.pull_request.labels.*.name) }}'",
+      `matched=$(echo $labels | jq '.|map(select(startswith("${label}"))) | length')`,
+      'echo "matched=$matched"',
+      'echo "matched=$matched" >> $GITHUB_OUTPUT',
+    ].join("\n"),
+  }),
+  JsonPatch.add(
+    "/jobs/backport/steps/1/if",
+    "fromJSON(steps.check_labels.outputs.matched) > 0",
+  ),
+);
+
+>>>>>>> ac760dd (chore: fix condition (#15))
 new MergeQueue(project, {
   mergeBranch: "main",
   autoMergeOptions: {
