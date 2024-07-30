@@ -20,7 +20,7 @@ jobs:
           echo "matched=$matched"
           echo "matched=$matched" >> $GITHUB_OUTPUT
       - name: Backport Action
-        if: steps.check_labels.matched > 0
+        if: fromJSON(steps.check_labels.outputs.matched) > 0
         uses: sqren/backport-github-action@v9.5.1
         with:
           github_token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
