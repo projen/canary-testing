@@ -40,14 +40,22 @@ const project = new cdk.JsiiProject({
   },
 });
 
-project.github
-  ?.tryFindWorkflow("backport")
-  ?.file?.patch(
-    JsonPatch.add(
-      "/jobs/backport/steps/0/if",
-      "github.event.pull_request.merged && (github.event.action == 'closed' || (github.event.action == 'labeled' && startsWith(github.event.label.name, 'backport-to-')))",
-    ),
-  );
+const label = "backport-to-";
+const cond =
+  "github.event.pull_request.merged && !(contains(github.event.pull_request.labels.*.name, 'backport'))";
+project.github?.tryFindWorkflow("backport")?.file?.patch(
+  JsonPatch.add("/jobs/backport/if", cond),
+  JsonPatch.add("/jobs/backport/steps/0", {
+    id: "check_labels",
+    name: "Check for backport labels",
+    run: [
+      "labels='${{ toJSON(github.event.pull_request.labels.*.name) }}'",
+      `matched=$(echo $labels | jq '.|map(select(startswith("${label}"))) | length')`,
+      'echo "matched=$matched" >> $GITHUB_OUTPUT',
+    ].join("\n"),
+  }),
+  JsonPatch.add("/jobs/backport/steps/1/if", "steps.check_labels.matched > 0"),
+);
 
 new MergeQueue(project, {
   mergeBranch: "main",

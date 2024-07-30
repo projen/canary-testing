@@ -12,9 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     permissions: {}
     steps:
+      - id: check_labels
+        name: Check for backport labels
+        run: |-
+          labels='${{ toJSON(github.event.pull_request.labels.*.name) }}'
+          matched=$(echo $labels | jq '.|map(select(startswith("backport-to-"))) | length')
+          echo "matched=$matched" >> $GITHUB_OUTPUT
       - name: Backport Action
-        if: github.event.pull_request.merged && (github.event.action == 'closed' || (github.event.action == 'labeled' && startsWith(github.event.label.name, 'backport-to-')))
+        if: steps.check_labels.matched > 0
         uses: sqren/backport-github-action@v9.5.1
         with:
           github_token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
           auto_backport_label_prefix: backport-to-
+    if: github.event.pull_request.merged && !(contains(github.event.pull_request.labels.*.name, 'backport'))
