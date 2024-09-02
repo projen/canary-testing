@@ -2028,14 +2028,21 @@ eslint-import-resolver-typescript@^3.6.3:
     is-bun-module "^1.0.2"
     is-glob "^4.0.3"
 
-eslint-module-utils@^2.8.1, eslint-module-utils@^2.9.0:
+eslint-module-utils@^2.8.1:
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/eslint-module-utils/-/eslint-module-utils-2.8.2.tgz#2ecad69d71e1fa81f17f7f24d5d3e46b168de663"
+  integrity sha512-3XnC5fDyc8M4J2E8pt8pmSVRX2M+5yWMCfI/kDZwauQeFgzQOuhcRBFKjTeJagqgk4sFKxe1mvNVnaWwImx/Tg==
+  dependencies:
+    debug "^3.2.7"
+
+eslint-module-utils@^2.9.0:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/eslint-module-utils/-/eslint-module-utils-2.9.0.tgz#95d4ac038a68cd3f63482659dffe0883900eb342"
   integrity sha512-McVbYmwA3NEKwRQY5g4aWMdcZE5xZxV8i8l7CqJSrameuGSQJtSWaL/LxTEzSKKaCcOhlpDR8XEfYXWPrdo/ZQ==
   dependencies:
     debug "^3.2.7"
 
-eslint-plugin-import@^2.30.0:
+eslint-plugin-import@^2.29.1:
   version "2.30.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.30.0.tgz#21ceea0fc462657195989dd780e50c92fe95f449"
   integrity sha512-/mHNE9jINJfiD2EKkg1BKyPyUk4zdnT54YgbOgfjSakWT5oyX/qQLVNTkehyfpcMxZXMy1zyonZ2v7hZTX43Yw==
@@ -3413,9 +3420,9 @@ jsii-reflect@^1.103.0, jsii-reflect@^1.103.1:
     yargs "^16.2.0"
 
 jsii-rosetta@5.4.x:
-  version "5.4.35"
-  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.4.35.tgz#16a477118acdf40dcd8b073e21b44a3f6188bd9f"
-  integrity sha512-uz3+nnFxdSvpqUwdSzpEjOfFZQ5gFdyTvfb+PylvrQnF8/y7bMmYa0sJV09sF8UHMij0iYnuS00WpepG92/R/g==
+  version "5.4.34"
+  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.4.34.tgz#660caaf25cff0c550ef6609a02625e9c5a17a911"
+  integrity sha512-5pUVuDeGtD0FYArthBBoTmZmdlH8zu1qYDHXF3aYBuWfDm86PMQGTRvKZYH/r8C4A3/u6Y/OR36+6lzgDS2Ixg==
   dependencies:
     "@jsii/check-node" "1.103.0"
     "@jsii/spec" "^1.103.0"
@@ -4899,9 +4906,9 @@ typescript@5.4.x, typescript@~5.4:
   integrity sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==
 
 typescript@next:
-  version "5.7.0-dev.20240903"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.7.0-dev.20240903.tgz#864c2460c823ab33328378124462be8b166d5437"
-  integrity sha512-XTUc5uVwBbLlT0v3FqTx9sDN1MLQnT5mwSC3JefCrcKT6Zv+rPcQE7HLKM9IsrNiM1tiaQvamJTgVH0S+UMH2A==
+  version "5.7.0-dev.20240901"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.7.0-dev.20240901.tgz#9acfce421060120c668b3a9d639f26d751c7d927"
+  integrity sha512-Ixq+8fl0lsSFrIDfNi5/57wietIBnDY4Pp7JbPRJGtlGi5W9Sha/nky1ImNWteiOj3op6dMSHX5zrxCA4WlqCw==
 
 uglify-js@^3.1.4:
   version "3.19.3"
