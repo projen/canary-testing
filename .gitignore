@@ -54,4 +54,5 @@ junit.xml
 tsconfig.json
 !/API.md
 !/.github/workflows/auto-merge.yml
+!vendor/*
 !/.projenrc.ts

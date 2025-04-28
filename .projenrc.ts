@@ -1,6 +1,7 @@
 import { cdk, JsonPatch } from "projen";
+import { JsiiProjectOptions } from "projen/lib/cdk";
 import { NpmAccess } from "projen/lib/javascript";
-import { MergeQueue } from "./src";
+import { MergeQueue } from "./projenrc/merge-queue";
 
 const project = new cdk.JsiiProject({
   author: "AWS",
@@ -27,7 +28,7 @@ const project = new cdk.JsiiProject({
       branches: ["v1"],
     },
   },
-  peerDeps: ["constructs@^10.0.0", "projen@0.x >=0.75.0"],
+  peerDeps: ["constructs@^10.0.0"],
   peerDependencyOptions: {
     pinnedDevDependency: false,
   },
@@ -38,7 +39,7 @@ const project = new cdk.JsiiProject({
     mavenArtifactId: "projen_canary_package",
     mavenEndpoint: "https://s01.oss.sonatype.org",
   },
-});
+} satisfies JsiiProjectOptions);
 
 const label = "backport-to-";
 const cond =
@@ -82,5 +83,7 @@ project.github?.tryFindWorkflow("release")?.file?.patch(
     "java-version": javaVersion,
   }),
 );
+
+project.gitignore?.addPatterns("!vendor/*");
 
 project.synth();
