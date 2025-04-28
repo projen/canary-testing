@@ -4565,9 +4565,9 @@ process-nextick-args@~2.0.0:
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
 
-projen@./vendor/projen-0.91.1001.jsii.tgz:
-  version "0.91.1001"
-  resolved "./vendor/projen-0.91.1001.jsii.tgz#ccd4a80055da975995250d62f18c8ad7f71531dc"
+projen@./vendor/projen-0.91.1002.jsii.tgz:
+  version "0.91.1002"
+  resolved "./vendor/projen-0.91.1002.jsii.tgz#49030a1a1274765239835f250a3748358aa75d92"
   dependencies:
     "@iarna/toml" "^2.2.5"
     case "^1.6.3"
