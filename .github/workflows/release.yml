@@ -168,5 +168,5 @@ jobs:
         run: mv .repo/dist dist
       - name: Release
         env:
-          PYPI_TRUSTED_PUBLISHER: true
+          PYPI_TRUSTED_PUBLISHER: "true"
         run: npx -p github:cdklabs/publib#mrgrain/feat/pypi-trusted-publisher publib-pypi
