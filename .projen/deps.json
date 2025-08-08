@@ -2,12 +2,11 @@
   "dependencies": [
     {
       "name": "@types/jest",
-      "version": "^29",
       "type": "build"
     },
     {
       "name": "@types/node",
-      "version": "ts5.4",
+      "version": "ts5.9",
       "type": "build"
     },
     {
@@ -52,13 +51,12 @@
       "type": "build"
     },
     {
-      "name": "jest-junit",
-      "version": "^16",
+      "name": "jest",
       "type": "build"
     },
     {
-      "name": "jest",
-      "version": "^29",
+      "name": "jest-junit",
+      "version": "^16",
       "type": "build"
     },
     {
@@ -76,12 +74,12 @@
     },
     {
       "name": "jsii-rosetta",
-      "version": "5.4.x",
+      "version": "5.9.x",
       "type": "build"
     },
     {
       "name": "jsii",
-      "version": "5.4.x",
+      "version": "5.9.x",
       "type": "build"
     },
     {
@@ -94,7 +92,6 @@
     },
     {
       "name": "ts-jest",
-      "version": "^29",
       "type": "build"
     },
     {
@@ -103,7 +100,7 @@
     },
     {
       "name": "typescript",
-      "version": "5.4.x",
+      "version": "5.9.x",
       "type": "build"
     },
     {

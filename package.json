@@ -16,8 +16,8 @@
     "eslint": "npx projen eslint",
     "package": "npx projen package",
     "package-all": "npx projen package-all",
-    "package:java": "npx projen package:java",
     "package:js": "npx projen package:js",
+    "package:python": "npx projen package:python",
     "post-compile": "npx projen post-compile",
     "post-upgrade": "npx projen post-upgrade",
     "pre-compile": "npx projen pre-compile",
@@ -36,28 +36,28 @@
   },
   "devDependencies": {
     "@types/jest": "^29",
-    "@types/node": "ts5.4",
+    "@types/node": "ts5.9",
     "@typescript-eslint/eslint-plugin": "^8",
     "@typescript-eslint/parser": "^8",
     "commit-and-tag-version": "^12",
     "constructs": "^10.0.0",
     "eslint": "^9",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-import-resolver-typescript": "^3.6.3",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-prettier": "^5.2.1",
-    "jest": "^29",
+    "eslint-config-prettier": "^9.1.2",
+    "eslint-import-resolver-typescript": "^3.10.1",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "jest": "^30",
     "jest-junit": "^16",
-    "jsii": "5.4.x",
-    "jsii-diff": "^1.103.1",
+    "jsii": "5.9.x",
+    "jsii-diff": "^1.113.0",
     "jsii-docgen": "^10.5.0",
-    "jsii-pacmak": "^1.103.1",
-    "jsii-rosetta": "5.4.x",
-    "prettier": "^3.3.3",
-    "projen": "./vendor/projen-0.91.1007.jsii.tgz",
+    "jsii-pacmak": "^1.113.0",
+    "jsii-rosetta": "5.9.x",
+    "prettier": "^3.6.2",
+    "projen": "./vendor/projen-0.95.1003.jsii.tgz",
     "ts-jest": "^29",
     "ts-node": "^10.9.2",
-    "typescript": "5.4.x"
+    "typescript": "5.9.x"
   },
   "peerDependencies": {
     "constructs": "^10.0.0"
@@ -118,12 +118,9 @@
   "jsii": {
     "outdir": "dist",
     "targets": {
-      "java": {
-        "package": "io.github.cdklabs.projen_canary_package",
-        "maven": {
-          "groupId": "io.github.cdklabs",
-          "artifactId": "projen_canary_package"
-        }
+      "python": {
+        "distName": "projen.canary-package",
+        "module": "projen.canary_package"
       }
     },
     "tsc": {

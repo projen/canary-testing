@@ -12,15 +12,8 @@ jobs:
     name: Backport PR
     runs-on: ubuntu-latest
     permissions: {}
-    if: github.event.pull_request.merged && !(contains(github.event.pull_request.labels.*.name, 'backport'))
+    if: github.event.pull_request.merged == true && !(contains(github.event.pull_request.labels.*.name, 'backport'))
     steps:
-      - id: check_labels
-        name: Check for backport labels
-        run: |-
-          labels='${{ toJSON(github.event.pull_request.labels.*.name) }}'
-          matched=$(echo $labels | jq '.|map(select(startswith("backport-to-"))) | length')
-          echo "matched=$matched"
-          echo "matched=$matched" >> $GITHUB_OUTPUT
       - name: Check for backport labels
         id: check_labels
         run: |-
@@ -28,7 +21,7 @@ jobs:
           matched=$(echo $labels | jq '.|map(select(startswith("backport-to-"))) | length')
           echo "matched=$matched"
           echo "matched=$matched" >> $GITHUB_OUTPUT
-        if: fromJSON(steps.check_labels.outputs.matched) > 0
+        shell: bash
       - name: Backport Action
         if: fromJSON(steps.check_labels.outputs.matched) > 0
         uses: sqren/backport-github-action@v9.5.1
