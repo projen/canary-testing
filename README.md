@@ -1,6 +1,6 @@
 # @projen/canary-testing
 
-:warning: Do not use!
+:warning: Do not use! :warning:
 
 This package is used to integration test certain [projen](https://github.com/projen/projen) features that cannot be tested otherwise.
 For example:
