@@ -54,9 +54,23 @@ new MergeQueue(project, {
 });
 
 // remove npm token
-project.github
-  ?.tryFindWorkflow("release")
-  ?.file?.patch(JsonPatch.remove("/jobs/release_npm/steps/9/env/NPM_TOKEN"));
+project.github?.tryFindWorkflow("release")?.file?.patch(
+  JsonPatch.remove("/jobs/release_npm/steps/9/env/NPM_TOKEN"),
+  JsonPatch.add("/jobs/release_npm/steps/9/env/NPM_TRUSTED_PUBLISHER", "true"),
+  JsonPatch.replace(
+    "/jobs/release_npm/steps/9/run",
+    "npx -p github:cdklabs/publib#mrgrain/feat/npm-trusted-publisher publib-npm",
+  ),
+
+  JsonPatch.replace("/jobs/release_pypi/steps/11/env", {
+    PYPI_TRUSTED_PUBLISHER: "true",
+  }),
+  JsonPatch.replace(
+    "/jobs/release_pypi/steps/11/run",
+    "npx -p github:cdklabs/publib#mrgrain/feat/pypi-trusted-publisher publib-pypi",
+  ),
+  JsonPatch.remove("/jobs/release_pypi/steps/10"),
+);
 
 // fix java version
 // const javaVersion = "11";
