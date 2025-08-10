@@ -1,4 +1,4 @@
-import { cdk } from "projen";
+import { cdk, JsonPatch } from "projen";
 import { JsiiProjectOptions } from "projen/lib/cdk";
 import { NpmAccess } from "projen/lib/javascript";
 import { MergeQueue } from "./projenrc/merge-queue";
@@ -54,24 +54,22 @@ new MergeQueue(project, {
 });
 
 // remove npm token
-project.github
-  ?.tryFindWorkflow("release")
-  ?.file?.patch
+project.github?.tryFindWorkflow("release")?.file?.patch(
   // JsonPatch.remove("/jobs/release_npm/steps/9/env/NPM_TOKEN"),
-  //   JsonPatch.add("/jobs/release_npm/steps/9/env/NPM_TRUSTED_PUBLISHER", "true"),
-  // JsonPatch.replace(
-  //   "/jobs/release_npm/steps/9/run",
-  //   "npx -p github:cdklabs/publib#mrgrain/feat/npm-trusted-publisher publib-npm",
-  // ),
+  // JsonPatch.add("/jobs/release_npm/steps/9/env/NPM_TRUSTED_PUBLISHER", "true"),
+  JsonPatch.replace(
+    "/jobs/release_npm/steps/9/run",
+    "npx -p github:cdklabs/publib#mrgrain-patch-1 publib-npm",
+  ),
 
   //   JsonPatch.replace("/jobs/release_pypi/steps/10/env", {
   //     PYPI_TRUSTED_PUBLISHER: "true",
   //   }),
-  // JsonPatch.replace(
-  //   "/jobs/release_pypi/steps/10/run",
-  //   "npx -p github:cdklabs/publib#mrgrain/feat/pypi-trusted-publisher publib-pypi",
-  // ),
-  ();
+  JsonPatch.replace(
+    "/jobs/release_pypi/steps/10/run",
+    "npx -p github:cdklabs/publib#mrgrain-patch-1 publib-pypi",
+  ),
+);
 
 // fix java version
 // const javaVersion = "11";

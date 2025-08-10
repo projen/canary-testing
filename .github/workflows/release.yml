@@ -127,7 +127,7 @@ jobs:
           NPM_REGISTRY: registry.npmjs.org
           NPM_CONFIG_PROVENANCE: "true"
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx -p publib@latest publib-npm
+        run: npx -p github:cdklabs/publib#mrgrain-patch-1 publib-npm
   release_pypi:
     name: Publish to PyPI
     needs: release
@@ -169,4 +169,4 @@ jobs:
         env:
           TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
-        run: npx -p publib@latest publib-pypi
+        run: npx -p github:cdklabs/publib#mrgrain-patch-1 publib-pypi
