@@ -55,16 +55,16 @@ new MergeQueue(project, {
 
 // remove npm token
 project.github?.tryFindWorkflow("release")?.file?.patch(
-  // JsonPatch.remove("/jobs/release_npm/steps/9/env/NPM_TOKEN"),
-  // JsonPatch.add("/jobs/release_npm/steps/9/env/NPM_TRUSTED_PUBLISHER", "true"),
+  JsonPatch.remove("/jobs/release_npm/steps/9/env/NPM_TOKEN"),
+  JsonPatch.add("/jobs/release_npm/steps/9/env/NPM_TRUSTED_PUBLISHER", "true"),
   JsonPatch.replace(
     "/jobs/release_npm/steps/9/run",
     "npx -p github:cdklabs/publib#mrgrain-patch-1 publib-npm",
   ),
 
-  //   JsonPatch.replace("/jobs/release_pypi/steps/10/env", {
-  //     PYPI_TRUSTED_PUBLISHER: "true",
-  //   }),
+  JsonPatch.replace("/jobs/release_pypi/steps/10/env", {
+    PYPI_TRUSTED_PUBLISHER: "true",
+  }),
   JsonPatch.replace(
     "/jobs/release_pypi/steps/10/run",
     "npx -p github:cdklabs/publib#mrgrain-patch-1 publib-pypi",
