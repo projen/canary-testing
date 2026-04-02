@@ -7,6 +7,14 @@
 !/.backportrc.json
 !/.github/workflows/backport.yml
 !/.github/workflows/auto-approve.yml
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+!/.yarnrc.yml
 !/package.json
 !/LICENSE
 !/.npmignore
