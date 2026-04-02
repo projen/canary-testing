@@ -1,4 +1,4 @@
-import { cdk } from "projen";
+import { cdk, javascript } from "projen";
 import { JsiiProjectOptions } from "projen/lib/cdk";
 import { NpmAccess } from "projen/lib/javascript";
 import { MergeQueue } from "./projenrc/merge-queue";
@@ -9,6 +9,12 @@ const project = new cdk.JsiiProject({
   defaultReleaseBranch: "main",
   name: "@projen/canary-package",
   projenrcTs: true,
+  packageManager: javascript.NodePackageManager.YARN_BERRY,
+  yarnBerryOptions: {
+    yarnRcOptions: {
+      nodeLinker: javascript.YarnNodeLinker.NODE_MODULES,
+    },
+  },
   release: true,
   repositoryUrl: "https://github.com/projen/canary-testing.git",
   prettier: true,
@@ -46,6 +52,9 @@ const project = new cdk.JsiiProject({
   //   mavenEndpoint: "https://s01.oss.sonatype.org",
   // },
 } satisfies JsiiProjectOptions);
+
+// @ts-ignore
+project.tryFindObjectFile(".yarnrc.yml").readonly = false;
 
 new MergeQueue(project, {
   mergeBranch: "main",
