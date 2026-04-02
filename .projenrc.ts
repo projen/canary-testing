@@ -15,6 +15,12 @@ const project = new cdk.JsiiProject({
       nodeLinker: javascript.YarnNodeLinker.NODE_MODULES,
     },
   },
+  workflowBootstrapSteps: [
+    {
+      name: "Enable corepack",
+      run: "corepack enable",
+    },
+  ],
   release: true,
   repositoryUrl: "https://github.com/projen/canary-testing.git",
   prettier: true,

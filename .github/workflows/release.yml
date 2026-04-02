@@ -28,6 +28,8 @@ jobs:
         run: |-
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+      - name: Enable corepack
+        run: corepack enable
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -107,6 +109,8 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
+      - name: Enable corepack
+        run: corepack enable
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -152,6 +156,8 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
+      - name: Enable corepack
+        run: corepack enable
       - name: Checkout
         uses: actions/checkout@v4
         with:
