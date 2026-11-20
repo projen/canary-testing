@@ -120,6 +120,7 @@ export class AutoMerge extends Component {
       // not automatically re-enable it, unless one of the events occurs.
       pullRequestTarget: {
         types: ["opened", "reopened", "ready_for_review"],
+        branches: ["main"],
       },
     });
     workflow.addJobs({ enableAutoMerge: autoMergeJob });
