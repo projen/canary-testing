@@ -60,22 +60,22 @@ export class AutoMerge extends Component {
     if (labels.length > 0) {
       conditions.push(
         "(" +
-        labels
-          .map(
-            (l) =>
-              `contains(github.event.pull_request.labels.*.name, '${l}')`,
-          )
-          .join(" || ") +
-        ")",
+          labels
+            .map(
+              (l) =>
+                `contains(github.event.pull_request.labels.*.name, '${l}')`,
+            )
+            .join(" || ") +
+          ")",
       );
     }
     if (usernames.length > 0) {
       conditions.push(
         "(" +
-        usernames
-          .map((u) => `github.event.pull_request.user.login == '${u}'`)
-          .join(" || ") +
-        ")",
+          usernames
+            .map((u) => `github.event.pull_request.user.login == '${u}'`)
+            .join(" || ") +
+          ")",
       );
     }
 
