@@ -60,22 +60,22 @@ export class AutoMerge extends Component {
     if (labels.length > 0) {
       conditions.push(
         "(" +
-          labels
-            .map(
-              (l) =>
-                `contains(github.event.pull_request.labels.*.name, '${l}')`,
-            )
-            .join(" || ") +
-          ")",
+        labels
+          .map(
+            (l) =>
+              `contains(github.event.pull_request.labels.*.name, '${l}')`,
+          )
+          .join(" || ") +
+        ")",
       );
     }
     if (usernames.length > 0) {
       conditions.push(
         "(" +
-          usernames
-            .map((u) => `github.event.pull_request.user.login == '${u}'`)
-            .join(" || ") +
-          ")",
+        usernames
+          .map((u) => `github.event.pull_request.user.login == '${u}'`)
+          .join(" || ") +
+        ")",
       );
     }
 
@@ -120,6 +120,7 @@ export class AutoMerge extends Component {
       // not automatically re-enable it, unless one of the events occurs.
       pullRequestTarget: {
         types: ["opened", "reopened", "ready_for_review"],
+        branches: ["main"],
       },
     });
     workflow.addJobs({ enableAutoMerge: autoMergeJob });
